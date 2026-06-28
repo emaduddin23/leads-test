@@ -24,8 +24,7 @@ class DashboardPage {
 
   async getWelcomeEmail() {
     const text = await this.locator.welcomeText.innerText();
-    const match = text.match(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/);
-    return match ? match[1].toLowerCase() : '';
+    return text.split(', ')[1].split(' - ')[0].toLowerCase();
   }
 
   async verifyWelcomeEmail(expectedEmail) {
