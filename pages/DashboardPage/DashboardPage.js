@@ -22,6 +22,12 @@ class DashboardPage {
     return /leads-test/i.test(this.page.url());
   }
 
+  async getWelcomeEmail() {
+    const text = await this.locators.welcomeText.innerText();
+    const match = text.match(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/);
+    return match ? match[1].toLowerCase() : '';
+  }
+
   async logout() {
     await this.locators.profileTrigger.click();
     await this.page.waitForTimeout(600);
