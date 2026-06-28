@@ -68,6 +68,27 @@ Each user gets their own test iteration with separate screenshots.
 - **Locators as properties** — selectors are plain properties, not method calls (`this.locators.emailInput.fill(...)`)
 - **Semantic selectors** — uses `getByRole`, `getByPlaceholder`, and shadcn `data-slot` attributes instead of brittle CSS chains
 
+## CI/CD (GitHub Actions)
+
+[![Playwright Tests](https://github.com/emaduddin23/leads-test/actions/workflows/playwright.yml/badge.svg)](https://github.com/emaduddin23/leads-test/actions)
+
+Tests run automatically on push to `main` and daily at 6 AM UTC.
+
+### Setup GitHub Secrets
+
+In your repo go to **Settings → Secrets and variables → Actions** and add:
+
+| Secret          | Value              |
+|-----------------|--------------------|
+| `TEST_EMAIL`    | your@email.com     |
+| `TEST_PASSWORD` | your-password      |
+
+When these secrets are set, the CI workflow uses them instead of `users.json` (no credentials in the repo).
+
+### Manual Trigger
+
+Go to the **Actions** tab → **Playwright Tests** → **Run workflow**.
+
 ## Tech Stack
 
 - [Playwright](https://playwright.dev) — browser automation

@@ -3,7 +3,11 @@ const LoginPage = require('../pages/LoginPage/LoginPage');
 const DashboardPage = require('../pages/DashboardPage/DashboardPage');
 const users = require('../test-data/users.json');
 
-for (const user of users) {
+const accounts = process.env.TEST_EMAIL
+  ? [{ email: process.env.TEST_EMAIL, password: process.env.TEST_PASSWORD }]
+  : users;
+
+for (const user of accounts) {
   test(`Login, dashboard, logout flow for ${user.email}`, async ({ page }) => {
     const loginPage = new LoginPage(page);
     const dashboardPage = new DashboardPage(page);
