@@ -7,19 +7,16 @@ Automated login/logout flows for [leads-test.uapp.uk](https://leads-test.uapp.uk
 ```
 leads-test/
 ├── pages/
-│   ├── BasePage/
-│   │   └── BasePage.js              # Shared utilities (navigate, screenshot)
-│   ├── LoginPage/
-│   │   ├── LoginPage.locators.js    # Login selectors
-│   │   └── LoginPage.js             # Login actions
-│   └── DashboardPage/
-│       ├── DashboardPage.locators.js # Dashboard selectors
-│       └── DashboardPage.js          # Dashboard actions (logout)
+│   ├── LoginPage.js         # Locators + actions in one simple class
+│   └── DashboardPage.js     # Locators + actions in one simple class
 ├── tests/
-│   └── login-logout.spec.js         # Test spec — iterates over users.json
+│   └── login-logout.spec.js # Test spec — iterates over users.json
 ├── test-data/
-│   └── users.json                   # Add emails & passwords here
-├── screenshots/                     # Auto-generated on each run
+│   └── users.json           # Add emails & passwords here
+├── screenshots/             # Auto-generated on each run
+├── .github/workflows/
+│   └── playwright.yml       # CI/CD workflow
+├── mcp.json                 # Playwright MCP config
 ├── playwright.config.js
 ├── package.json
 └── .gitignore
@@ -29,9 +26,11 @@ leads-test/
 
 1. Navigate to `leads-test.uapp.uk`
 2. Enter email & password, click **Log in**
-3. Wait for dashboard to load, take a screenshot
-4. Click profile button (top-right), click **Sign out**
-5. Take a screenshot after logout
+3. Wait for dashboard to load
+4. Verify the **"Welcome back, <email>"** greeting matches the login email
+5. Take a dashboard screenshot
+6. Click profile button (top-right), click **Sign out**
+7. Take an after-logout screenshot
 
 ## Setup
 
@@ -64,8 +63,8 @@ Each user gets their own test iteration with separate screenshots.
 
 ## Design
 
-- **No inheritance, no `super`** — every page class composes its dependencies via `this.base` and `this.locators`
-- **Locators as properties** — selectors are plain properties, not method calls (`this.locators.emailInput.fill(...)`)
+- **Single-file page objects** — locators and actions live together, easy to read
+- **No inheritance, no `super`** — each page class is standalone
 - **Semantic selectors** — uses `getByRole`, `getByPlaceholder`, and shadcn `data-slot` attributes instead of brittle CSS chains
 
 ## CI/CD (GitHub Actions)
@@ -89,10 +88,22 @@ When these secrets are set, the CI workflow uses them instead of `users.json` (n
 
 Go to the **Actions** tab → **Playwright Tests** → **Run workflow**.
 
+## Playwright MCP (AI Browser Control)
+
+This project includes `mcp.json` for [Playwright MCP](https://github.com/microsoft/playwright-mcp).
+
+With an MCP client (Cursor, Claude Desktop, etc.), you can control the browser using natural language like:
+
+- "Go to leads-test.uapp.uk"
+- "Log in with permtest@gmail.com"
+- "Take a screenshot of the dashboard"
+- "Click the profile menu and sign out"
+
 ## Tech Stack
 
 - [Playwright](https://playwright.dev) — browser automation
 - shadcn/ui / Radix UI — target application framework
+- [Playwright MCP](https://github.com/microsoft/playwright-mcp) — AI browser control
 - Node.js, CommonJS
 
 ---

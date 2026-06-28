@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
-const LoginPage = require('../pages/LoginPage/LoginPage');
-const DashboardPage = require('../pages/DashboardPage/DashboardPage');
+const LoginPage = require('../pages/LoginPage');
+const DashboardPage = require('../pages/DashboardPage');
 const users = require('../test-data/users.json');
 
 const accounts = process.env.TEST_EMAIL
@@ -15,7 +15,8 @@ for (const user of accounts) {
 
     await loginPage.login(user.email, user.password);
     await dashboardPage.waitForDashboard();
-    expect(await dashboardPage.verifyOnDashboard()).toBeTruthy();
+
+    expect(await dashboardPage.heading().isVisible()).toBeTruthy();
     expect(await dashboardPage.verifyWelcomeEmail(user.email)).toBeTruthy();
 
     await dashboardPage.screenshot(`${sanitizedEmail}_dashboard.png`);
