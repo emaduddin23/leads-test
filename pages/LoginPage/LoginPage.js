@@ -14,9 +14,9 @@ class LoginPage {
 
   async login(email, password) {
     await this.base.navigate('/');
-    await this.locator.emailInput().fill(email);
-    await this.locator.passwordInput().fill(password);
-    await this.locator.submitButton().click();
+    await this.locator.emailInput.fill(email);
+    await this.locator.passwordInput.fill(password);
+    await this.locator.submitButton.click();
   }
 }
 

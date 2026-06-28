@@ -1,11 +1,9 @@
 class LoginPageLocators {
   constructor(page) {
-    this.page = page;
+    this.emailInput    = page.getByPlaceholder('name@email.com');
+    this.passwordInput = page.getByPlaceholder('Password');
+    this.submitButton  = page.getByRole('button', { name: 'Log in' });
   }
-
-  emailInput()    { return this.page.getByPlaceholder('name@email.com'); }
-  passwordInput() { return this.page.getByPlaceholder('Password'); }
-  submitButton()  { return this.page.getByRole('button', { name: 'Log in' }); }
 }
 
 module.exports = LoginPageLocators;
