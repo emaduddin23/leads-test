@@ -28,6 +28,14 @@ class DashboardPage {
     return match ? match[1].toLowerCase() : '';
   }
 
+  async verifyWelcomeEmail(expectedEmail) {
+    const welcomeEmail = await this.getWelcomeEmail();
+    if (welcomeEmail !== expectedEmail.toLowerCase()) {
+      throw new Error(`Welcome email mismatch: expected "${expectedEmail}", got "${welcomeEmail}"`);
+    }
+    return true;
+  }
+
   async logout() {
     await this.locators.profileTrigger.click();
     await this.page.waitForTimeout(600);

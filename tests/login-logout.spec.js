@@ -16,9 +16,7 @@ for (const user of accounts) {
     await loginPage.login(user.email, user.password);
     await dashboardPage.waitForDashboard();
     expect(await dashboardPage.verifyOnDashboard()).toBeTruthy();
-
-    const welcomeEmail = await dashboardPage.getWelcomeEmail();
-    expect(welcomeEmail).toBe(user.email.toLowerCase());
+    expect(await dashboardPage.verifyWelcomeEmail(user.email)).toBeTruthy();
 
     await dashboardPage.screenshot(`${sanitizedEmail}_dashboard.png`);
 
