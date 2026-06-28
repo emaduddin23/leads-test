@@ -7,16 +7,22 @@ Automated login/logout flows for [leads-test.uapp.uk](https://leads-test.uapp.uk
 ```
 leads-test/
 ├── pages/
-│   ├── LoginPage.js         # Locators + actions in one simple class
-│   └── DashboardPage.js     # Locators + actions in one simple class
+│   ├── BasePage/
+│   │   └── BasePage.js              # Shared utilities (navigate, screenshot)
+│   ├── LoginPage/
+│   │   ├── LoginPage.locators.js    # Login selectors
+│   │   └── LoginPage.js             # Login actions
+│   └── DashboardPage/
+│       ├── DashboardPage.locators.js # Dashboard selectors
+│       └── DashboardPage.js          # Dashboard actions (logout)
 ├── tests/
-│   └── login-logout.spec.js # Test spec — iterates over users.json
+│   └── login-logout.spec.js         # Test spec — iterates over users.json
 ├── test-data/
-│   └── users.json           # Add emails & passwords here
-├── screenshots/             # Auto-generated on each run
+│   └── users.json                   # Add emails & passwords here
+├── screenshots/                     # Auto-generated on each run
 ├── .github/workflows/
-│   └── playwright.yml       # CI/CD workflow
-├── mcp.json                 # Playwright MCP config
+│   └── playwright.yml               # CI/CD workflow
+├── mcp.json                         # Playwright MCP config
 ├── playwright.config.js
 ├── package.json
 └── .gitignore
@@ -63,8 +69,9 @@ Each user gets their own test iteration with separate screenshots.
 
 ## Design
 
-- **Single-file page objects** — locators and actions live together, easy to read
-- **No inheritance, no `super`** — each page class is standalone
+- **Page-wise folders** — locators in one file, actions in another
+- **No inheritance, no `super`** — each page class composes `BasePage` and its locators
+- **Locator methods** — selectors return Playwright locators via simple methods (`emailInput()`, `heading()`, etc.)
 - **Semantic selectors** — uses `getByRole`, `getByPlaceholder`, and shadcn `data-slot` attributes instead of brittle CSS chains
 
 ## CI/CD (GitHub Actions)
