@@ -71,29 +71,38 @@ Each user gets their own test iteration with separate screenshots.
 
 - **Page-wise folders** — locators in one file, actions in another
 - **No inheritance, no `super`** — each page class composes `BasePage` and its locators
-- **Locator methods** — selectors return Playwright locators via simple methods (`emailInput()`, `heading()`, etc.)
+- **Locator properties** — selectors defined as properties so usage is clean (`this.locator.emailInput.fill(...)`)
 - **Semantic selectors** — uses `getByRole`, `getByPlaceholder`, and shadcn `data-slot` attributes instead of brittle CSS chains
 
 ## CI/CD (GitHub Actions)
 
 [![Playwright Tests](https://github.com/emaduddin23/leads-test/actions/workflows/playwright.yml/badge.svg)](https://github.com/emaduddin23/leads-test/actions)
 
-Tests run automatically on push to `main` and daily at 6 AM UTC.
+The workflow at `.github/workflows/playwright.yml` is triggered three ways:
+
+| Trigger | When |
+|---------|------|
+| **Push** | Every push to `main` |
+| **Schedule** | Daily at 6:00 AM UTC |
+| **Manual** | Actions tab → Playwright Tests → Run workflow |
+
+What it does:
+1. Checks out the code
+2. Installs Node.js 18 + dependencies
+3. Installs Playwright Chromium with system deps
+4. Runs `npm test` using `TEST_EMAIL` / `TEST_PASSWORD` secrets
+5. Uploads `screenshots/` and `playwright-report/` as artifacts (always)
 
 ### Setup GitHub Secrets
 
-In your repo go to **Settings → Secrets and variables → Actions** and add:
+Go to your repo → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**:
 
-| Secret          | Value              |
-|-----------------|--------------------|
-| `TEST_EMAIL`    | your@email.com     |
-| `TEST_PASSWORD` | your-password      |
+| Name | Value |
+|------|-------|
+| `TEST_EMAIL` | `permtest@gmail.com` |
+| `TEST_PASSWORD` | `Admin1212@` |
 
-When these secrets are set, the CI workflow uses them instead of `users.json` (no credentials in the repo).
-
-### Manual Trigger
-
-Go to the **Actions** tab → **Playwright Tests** → **Run workflow**.
+Once set, the CI uses secrets instead of `users.json` — no credentials exposed in the repo.
 
 ## Playwright MCP (AI Browser Control)
 
