@@ -16,9 +16,23 @@ for (const user of accounts) {
     await loginPage.login(user.email, user.password);
     await dashboardPage.waitForDashboard();
 
+    // Verify dashboard loaded
     expect(await dashboardPage.isDashboardVisible()).toBeTruthy();
+    expect(await dashboardPage.verifyDashboardNav()).toBeTruthy();
     expect(await dashboardPage.verifyWelcomeEmail(user.email)).toBeTruthy();
 
+    // Verify Total leads widget
+    expect(await dashboardPage.verifyTotalLeads()).toBeTruthy();
+
+    // Date filter: switch to Last Month then back to This Month
+    await dashboardPage.selectDateFilter('Last Month');
+    await dashboardPage.selectDateFilter('This Month');
+
+    // Manage dashboards
+    expect(await dashboardPage.manageDashboards()).toBeTruthy();
+    await dashboardPage.doneEditing();
+
+    // Screenshot then logout
     await dashboardPage.screenshot(`${sanitizedEmail}_dashboard.png`);
 
     await dashboardPage.logout();

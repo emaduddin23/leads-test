@@ -33,6 +33,36 @@ class DashboardPage {
     return welcomeEmail === expectedEmail.toLowerCase();
   }
 
+  async verifyDashboardNav() {
+    await this.locator.dashboardLink.waitFor({ state: 'visible', timeout: 8000 }).catch(() => {});
+    return await this.locator.dashboardLink.isVisible();
+  }
+
+  async verifyTotalLeads() {
+    await this.locator.totalLeads.waitFor({ state: 'visible', timeout: 5000 });
+    return await this.locator.totalLeads.isVisible();
+  }
+
+  async openDateFilter() {
+    await this.locator.dateFilter.click();
+    return await this.locator.dateOption('Today').isVisible();
+  }
+
+  async selectDateFilter(option) {
+    await this.locator.dateFilter.click();
+    await this.locator.dateOption(option).click();
+    await this.page.waitForTimeout(500);
+  }
+
+  async manageDashboards() {
+    await this.locator.manageDashboardsBtn.click();
+    return await this.locator.doneEditingBtn.isVisible();
+  }
+
+  async doneEditing() {
+    await this.locator.doneEditingBtn.click();
+  }
+
   async logout() {
     await this.locator.profileTrigger.click();
     await this.page.waitForTimeout(600);

@@ -18,6 +18,14 @@ class LoginPage {
     await this.locator.passwordInput.fill(password);
     await this.locator.submitButton.click();
   }
+
+  async loginViaSSO(email, password) {
+    await this.page.goto('http://sso-test.uapp.uk/?redirect=https%3A%2F%2Fleads-test.uapp.uk&logout=false&pathname=%2F&key=29122b20a62844e19ebd91a2c751608f');
+    await this.page.waitForLoadState('networkidle');
+    await this.locator.emailTextbox.fill(email);
+    await this.locator.passTextbox.fill(password);
+    await this.locator.loginBtn.click();
+  }
 }
 
 module.exports = LoginPage;
