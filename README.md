@@ -73,3 +73,7 @@ Each user gets their own test iteration with separate screenshots.
 - [Playwright](https://playwright.dev) — browser automation
 - shadcn/ui / Radix UI — target application framework
 - Node.js, CommonJS
+
+---
+
+&copy; 2026 **emaduddin23**
