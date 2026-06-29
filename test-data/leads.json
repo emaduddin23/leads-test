@@ -1,0 +1,4 @@
+[
+  { "firstName": "James", "lastName": "Anderson", "email": "james.a99@example.com", "phone": "+447856231101", "country": "United Kingdom", "source": "Meta" },
+  { "firstName": "Emma", "lastName": "Wilson", "email": "emma.w99@example.com", "phone": "+447856231102", "country": "United Kingdom", "source": "Google" }
+]
