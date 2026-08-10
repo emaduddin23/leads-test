@@ -19,7 +19,7 @@ for (const user of accounts) {
     // Verify dashboard loaded
     expect(await dashboardPage.isDashboardVisible()).toBeTruthy();
     expect(await dashboardPage.verifyDashboardNav()).toBeTruthy();
-    expect(await dashboardPage.verifyWelcomeEmail(user.email)).toBeTruthy();
+    expect(await dashboardPage.verifyWelcomeUser(user.name, user.userType)).toBeTruthy();
 
     // Verify Total leads widget
     expect(await dashboardPage.verifyTotalLeads()).toBeTruthy();

@@ -1,6 +1,8 @@
 [
   {
     "email": "vladflorinamarcela@gmail.com",
-    "password": "Admin1212@"
+    "password": "Admin1212@",
+    "name": "Florina-Marcela Vlad",
+    "userType": "Consultant"
   }
 ]

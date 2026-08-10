@@ -22,14 +22,20 @@ class DashboardPage {
     return await this.locator.heading.isVisible();
   }
 
-  async getWelcomeEmail() {
+  async getWelcomeName() {
     const text = await this.locator.welcomeText.innerText();
-    return text.split(', ')[1].split(' - ')[0].toLowerCase();
+    return text.split(', ')[1].split(' (as ')[0];
   }
 
-  async verifyWelcomeEmail(expectedEmail) {
-    const welcomeEmail = await this.getWelcomeEmail();
-    return welcomeEmail === expectedEmail.toLowerCase();
+  async getWelcomeUserType() {
+    const text = await this.locator.welcomeText.innerText();
+    return text.split('(as ')[1].replace(')', '');
+  }
+
+  async verifyWelcomeUser(expectedName, expectedUserType) {
+    const name = await this.getWelcomeName();
+    const userType = await this.getWelcomeUserType();
+    return name === expectedName && userType === expectedUserType;
   }
 
   async verifyDashboardNav() {
