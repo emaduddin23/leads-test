@@ -1,3 +1,4 @@
+
 class DashboardPageLocators {
   constructor(page) {
     this.page = page;
