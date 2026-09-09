@@ -12,6 +12,7 @@ const accounts = process.env.TEST_EMAIL
 for (const user of accounts) {
   test(`Add ${leads.length} leads for ${user.email}`, async ({ page }) => {
     test.setTimeout(300000);
+    let leadApiCalls = 0;
 
     // Log console errors
     page.on('console', (msg) => {
@@ -21,6 +22,7 @@ for (const user of accounts) {
     // Track lead API calls with response body
     page.on('response', async (res) => {
       if (res.url().includes('/api/app/lead') && res.request().method() === 'POST') {
+        leadApiCalls += 1;
         const body = await res.text().catch(() => '');
         console.log(`[API] POST lead → status: ${res.status()} body: ${body.substring(0, 300)}`);
       }
