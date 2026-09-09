@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Shell(npx playwright test tests/leads.spec.js)",
+      "Shell(npx @playwright/mcp@latest --help)",
+      "Shell(npx @playwright/mcp@latest --headless 2 >& 1)",
+      "Shell(sleep:*)",
+      "Shell(ps:*)",
+      "Shell(grep:*)",
+      "Shell(rm:*)"
+    ],
+    "deny": [],
+    "defaultMode": "default"
+  }
+}

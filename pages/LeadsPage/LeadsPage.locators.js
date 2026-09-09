@@ -4,7 +4,7 @@ class LeadsPageLocators {
 
     // Navigation
     this.leadsLink       = page.getByRole('link', { name: 'Leads' });
-    this.breadcrumb      = page.getByRole('navigation', { name: 'breadcrumb' });
+    this.breadcrumb      = page.getByRole('heading', { name: 'Leads', exact: true });
 
     // Add Lead
     this.addLeadBtn      = page.getByRole('button', { name: 'Add Lead' });
